@@ -187,6 +187,8 @@ Notes:
 
 Built executables are **not** checked into the repository. Publish them as
 attachments on a [GitHub Release](https://docs.github.com/en/repositories/releasing-projects-on-github).
+For the full update-and-release workflow (including the `release.ps1` helper),
+see **[RELEASING.md](RELEASING.md)**.
 
 ---
 

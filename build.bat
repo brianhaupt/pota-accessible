@@ -16,6 +16,13 @@ py -m PyInstaller ^
   --specpath build ^
   pota_accessible.py
 
+if errorlevel 1 (
+  echo.
+  echo Build FAILED.
+  endlocal
+  exit /b 1
+)
+
 echo.
 echo Done. See dist\POTA-Accessible-Spots.exe
 endlocal

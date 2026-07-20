@@ -49,8 +49,10 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 
+__version__ = "1.0.0"
+
 POTA_SPOTS_URL = "https://api.pota.app/spot/activator"
-USER_AGENT = "POTA-Accessible-Viewer/1.0 (local personal use)"
+USER_AGENT = "POTA-Accessible-Viewer/%s (local personal use)" % __version__
 FETCH_TIMEOUT = 15  # seconds
 
 # Directory to store persistent data next to the program. When frozen by
@@ -397,6 +399,7 @@ PAGE_HTML = r"""<!DOCTYPE html>
      activator, park, band and mode, an activator who moves to another band or
      mode &mdash; or who is spotted again on the next UTC day &mdash; will
      reappear so you can work them again.</p>
+  <p>POTA Accessible Spots v{{VERSION}}</p>
 </footer>
 
 <script>
@@ -721,7 +724,7 @@ document.addEventListener("DOMContentLoaded", () => {
 # HTTP server
 # --------------------------------------------------------------------------- #
 class Handler(BaseHTTPRequestHandler):
-    server_version = "POTAAccessible/1.0"
+    server_version = "POTAAccessible/" + __version__
 
     def _send(self, code, body, content_type):
         if isinstance(body, str):
@@ -741,7 +744,8 @@ class Handler(BaseHTTPRequestHandler):
             return
         note_activity()
         if path == "/" or path == "/index.html":
-            self._send(200, PAGE_HTML, "text/html; charset=utf-8")
+            page = PAGE_HTML.replace("{{VERSION}}", __version__)
+            self._send(200, page, "text/html; charset=utf-8")
         elif path == "/api/spots":
             try:
                 data = fetch_spots()
@@ -847,6 +851,8 @@ def main():
                     help="Do not auto-open a browser.")
     ap.add_argument("--no-autoexit", action="store_true",
                     help="Keep running even after the browser window is closed.")
+    ap.add_argument("--version", action="version",
+                    version="POTA Accessible Spots " + __version__)
     args = ap.parse_args()
 
     url = "http://%s:%d/" % (args.host, args.port)
