@@ -70,6 +70,20 @@ else:
 WORKED_FILE = os.path.join(APP_DIR, "worked_log.json")
 _worked_lock = threading.Lock()
 
+
+def _is_android():
+    """True when running under Android (Termux, Pydroid 3, etc.).
+
+    Android's browser can't be launched reliably via webbrowser.open(), so we
+    detect it to skip auto-open and print the URL for the user instead. Uses
+    only environment variables, keeping the standard-library-only guarantee.
+    """
+    if os.environ.get("ANDROID_ROOT") or os.environ.get("ANDROID_DATA"):
+        return True
+    if "com.termux" in os.environ.get("PREFIX", "") or os.environ.get("TERMUX_VERSION"):
+        return True
+    return False
+
 # --- Auto-exit heartbeat --------------------------------------------------- #
 # The page pings /api/ping every couple of seconds. When the browser window is
 # closed the pings stop; a watchdog thread then shuts the server down. The gap
@@ -873,7 +887,18 @@ def main():
     else:
         print("  Close the browser window (or press Ctrl+C) to stop.")
         start_idle_watchdog(httpd, IDLE_TIMEOUT)
-    if not args.no_browser:
+    if _is_android() and not args.no_browser:
+        # webbrowser.open() can't reliably launch Android's browser, so guide
+        # the user to open the URL themselves instead of silently failing.
+        print("")
+        print("  Android detected \u2014 auto-open skipped.")
+        print("  Open this address in your browser (Chrome, etc.):")
+        print("")
+        print("      " + url)
+        print("")
+        print("  Tip: long-press to copy the line above, or type it into the")
+        print("  address bar. Leave this session running while you use it.")
+    elif not args.no_browser:
         threading.Timer(0.6, lambda: webbrowser.open(url)).start()
     try:
         httpd.serve_forever()
