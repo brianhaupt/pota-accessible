@@ -14,6 +14,12 @@ It runs as a tiny local web app: a small Python program fetches the data and
 serves a clean page to your browser. Nothing is installed system-wide, and no
 data leaves your machine except the read-only request to POTA's public API.
 
+![Screenshot of POTA Accessible Spots: a page titled "POTA Active Spots" with
+labeled Search, Band, Mode, Program, and Sort controls, a status line reading
+"Updated at 12:47:40 PM. 72 spots.", and a data table with columns for Age,
+Callsign, Frequency, Band, Mode, Park, Location, Spotter, Comment, and a "Mark
+worked" button on each row.](docs/screenshot.png)
+
 ---
 
 ## Features
