@@ -1,0 +1,9 @@
+# Normalize line endings: check out with the platform's native endings,
+# store LF in the repository. Keeps diffs clean across Windows/macOS/Linux.
+* text=auto
+
+*.py   text
+*.md   text
+*.txt  text
+*.json text
+*.bat  text eol=crlf

@@ -1,0 +1,6 @@
+# Development / build dependencies only.
+#
+# The application itself has NO third-party runtime dependencies -- it uses
+# only the Python standard library. You need these packages solely to build
+# the standalone Windows .exe.
+pyinstaller>=6.0
