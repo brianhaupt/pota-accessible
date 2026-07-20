@@ -19,6 +19,12 @@ You only need these installed once:
   ```
 - **Git**, already configured and authenticated to GitHub (you pushed the repo,
   so this is done).
+- **GitHub CLI (`gh`)**, authenticated once so `release.ps1` can publish
+  releases for you:
+  ```powershell
+  winget install --id GitHub.cli -e
+  gh auth login        # choose GitHub.com -> HTTPS -> browser login
+  ```
 
 ---
 
@@ -75,21 +81,23 @@ Bump it using [semantic versioning](https://semver.org/):
    ```powershell
    ./release.ps1
    ```
+   Options:
+   ```powershell
+   ./release.ps1 -Notes "Fixed the band filter."   # custom release notes
+   ./release.ps1 -Prerelease                        # mark as a pre-release
+   ```
    If PowerShell blocks it:
    ```powershell
    powershell -ExecutionPolicy Bypass -File release.ps1
    ```
 
-The script reads the version from the source, refuses to run if you have
-uncommitted changes or if the tag already exists, builds the `.exe`, creates
-and pushes the `vX.Y.Z` tag, and opens the GitHub "new release" page with the
-tag pre-filled.
+That's the whole release — no browser step. The script reads the version from
+the source; refuses to run if you have uncommitted changes, if the tag already
+exists, or if `gh` isn't authenticated; builds the `.exe`; creates and pushes
+the `vX.Y.Z` tag; and publishes a GitHub release with the `.exe` attached. When
+you don't pass `-Notes`, GitHub auto-generates them from your commits.
 
-4. In the browser page that opens: **attach**
-   `dist\POTA-Accessible-Spots.exe`, add a short description, and click
-   **Publish release**.
-
-Done. The download link in the README now serves the new `.exe`.
+The download link in the README then serves the new `.exe` automatically.
 
 ### The manual way (no script)
 
