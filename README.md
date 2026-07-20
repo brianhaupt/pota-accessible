@@ -22,6 +22,21 @@ worked" button on each row.](docs/screenshot.png)
 
 ---
 
+## Download
+
+**Windows** — download the latest
+**[`POTA-Accessible-Spots.exe`](https://github.com/brianhaupt/pota-accessible/releases/latest/download/POTA-Accessible-Spots.exe)**
+from the [Releases page](https://github.com/brianhaupt/pota-accessible/releases/latest)
+and double-click it. No installation is required — your browser opens to the
+spots page, and the program closes itself when you close that window. On first
+run, Windows SmartScreen may warn about the unsigned app; choose
+**More info → Run anyway**.
+
+**macOS / Linux** — no prebuilt binary; [run from source](#running-from-source)
+with `python3 pota_accessible.py`.
+
+---
+
 ## Features
 
 - **Real data table** with proper column headers (`Age`, `Callsign`,
