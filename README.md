@@ -49,6 +49,9 @@ worked" button on each row.](docs/screenshot.png)
 - **Python 3.8 or newer** (standard library only — no third-party packages to
   install to run it).
 - An internet connection (to reach the POTA API).
+- **Any OS** — Windows, macOS, or Linux. The program is pure standard-library
+  Python, so it runs from source on all three (see
+  [macOS and Linux](#macos-and-linux)).
 
 To build the standalone Windows `.exe` you additionally need **PyInstaller**
 (see [Building a Windows executable](#building-a-windows-executable)).
@@ -79,6 +82,31 @@ Example:
 ```sh
 python pota_accessible.py --port 9000 --no-browser
 ```
+
+### macOS and Linux
+
+There is no prebuilt binary for macOS or Linux, but the app runs identically
+from source — it uses only the Python standard library and cross-platform
+calls, so no code changes are needed. Most macOS and Linux systems already have
+Python 3 installed as `python3`:
+
+```sh
+python3 pota_accessible.py
+```
+
+The browser auto-opens, and closing the browser window shuts the program down,
+exactly as on Windows. On the rare system without Python, install it from
+[python.org](https://www.python.org/downloads/) or your package manager
+(e.g. `brew install python` on macOS, `sudo apt install python3` on Debian/
+Ubuntu).
+
+> **Note on native executables.** PyInstaller can produce a standalone binary
+> for macOS and Linux too, but it cannot cross-compile — each platform's binary
+> must be built on that platform. On macOS, an unsigned app is additionally
+> blocked by Gatekeeper unless you right-click → **Open** the first time (or
+> sign and notarize it with an Apple Developer ID). For these reasons, only the
+> Windows `.exe` is distributed prebuilt; on macOS and Linux, run from source
+> as shown above.
 
 ---
 
