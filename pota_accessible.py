@@ -917,14 +917,21 @@ def main():
                % (url, e, args.port))
         sys.exit(1)
 
+    android = _is_android()
+
     print("POTA Accessible Spots Viewer")
     print("  Serving at: " + url)
-    if args.no_autoexit:
+    # The idle watchdog auto-stops the server when the browser window closes.
+    # It relies on a ~2s heartbeat from the page, but mobile browsers freeze
+    # background-tab timers, so on Android a refresh or app-switch would look
+    # like a close and kill the server. Android runs from Pydroid/Termux where
+    # the user stops the session manually anyway, so skip auto-exit there.
+    if args.no_autoexit or android:
         print("  Press Ctrl+C to stop.")
     else:
         print("  Close the browser window (or press Ctrl+C) to stop.")
         start_idle_watchdog(httpd, IDLE_TIMEOUT)
-    if _is_android() and not args.no_browser:
+    if android and not args.no_browser:
         # webbrowser.open() can't reliably launch Android's browser, so guide
         # the user to open the URL themselves instead of silently failing.
         print("")
