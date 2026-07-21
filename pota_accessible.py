@@ -271,6 +271,11 @@ PAGE_HTML = r"""<!DOCTYPE html>
   }
   .checkfield { flex-direction: row; align-items: center; gap: 8px; }
   .checkfield label { font-weight: 400; }
+  /* The .field input rule above is meant for text/select inputs; keep
+     checkboxes their natural size and hard against their label. */
+  .checkfield input[type="checkbox"] {
+    width: auto; min-width: 0; padding: 0; margin: 0; flex: none;
+  }
   .btns { display: flex; gap: 10px; align-items: flex-end; }
   button {
     font: inherit; font-weight: 600; cursor: pointer;
@@ -346,7 +351,9 @@ PAGE_HTML = r"""<!DOCTYPE html>
 
     /* Stack the filter controls full-width rather than wrapping awkwardly. */
     .field, .checkfield, .btns { width: 100%; }
-    .field input, .field select { width: 100%; min-width: 0; }
+    /* Full-width text/select inputs, but leave checkboxes their natural size
+       (the checkfields carry the .field class too). */
+    .field input:not([type="checkbox"]), .field select { width: 100%; min-width: 0; }
     .btns button { flex: 1; }
   }
 </style>
