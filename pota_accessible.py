@@ -396,7 +396,7 @@ PAGE_HTML = r"""<!DOCTYPE html>
           </select>
         </div>
         <div class="field checkfield">
-          <input type="checkbox" id="hideqrt" name="hideqrt">
+          <input type="checkbox" id="hideqrt" name="hideqrt" checked>
           <label for="hideqrt">Hide QRT (finished) spots</label>
         </div>
         <div class="field checkfield">
@@ -738,7 +738,7 @@ document.addEventListener("DOMContentLoaded", () => {
   el("clear").addEventListener("click", () => {
     el("q").value = "";
     el("band").value = ""; el("mode").value = "";
-    el("program").value = ""; el("hideqrt").checked = false;
+    el("program").value = ""; el("hideqrt").checked = true;
     el("showworked").checked = false;
     el("sort").value = "time-desc";
     onFilterChange();
