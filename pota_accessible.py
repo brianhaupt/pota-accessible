@@ -49,7 +49,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 
-__version__ = "1.0.1"
+__version__ = "1.1.0"
 
 POTA_SPOTS_URL = "https://api.pota.app/spot/activator"
 USER_AGENT = "POTA-Accessible-Viewer/%s (local personal use)" % __version__

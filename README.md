@@ -35,6 +35,9 @@ run, Windows SmartScreen may warn about the unsigned app; choose
 **macOS / Linux** — no prebuilt binary; [run from source](#running-from-source)
 with `python3 pota_accessible.py`.
 
+**Android** — run from source under Termux or Pydroid 3; see
+[Android](#android).
+
 ---
 
 ## Features
@@ -64,9 +67,9 @@ with `python3 pota_accessible.py`.
 - **Python 3.8 or newer** (standard library only — no third-party packages to
   install to run it).
 - An internet connection (to reach the POTA API).
-- **Any OS** — Windows, macOS, or Linux. The program is pure standard-library
-  Python, so it runs from source on all three (see
-  [macOS and Linux](#macos-and-linux)).
+- **Any OS** — Windows, macOS, Linux, or Android. The program is pure
+  standard-library Python, so it runs from source everywhere (see
+  [macOS and Linux](#macos-and-linux) and [Android](#android)).
 
 To build the standalone Windows `.exe` you additionally need **PyInstaller**
 (see [Building a Windows executable](#building-a-windows-executable)).
@@ -122,6 +125,37 @@ Ubuntu).
 > sign and notarize it with an Apple Developer ID). For these reasons, only the
 > Windows `.exe` is distributed prebuilt; on macOS and Linux, run from source
 > as shown above.
+
+### Android
+
+The app runs on Android from source — it's the same standard-library Python, so
+no code changes are needed. You need a Python 3 environment on the phone or
+tablet; the two common choices are:
+
+- **[Termux](https://termux.dev/)** (from F-Droid): `pkg install python`, then
+  run `python pota_accessible.py`.
+- **[Pydroid 3](https://play.google.com/store/apps/details?id=ru.iiec.pydroid3)**
+  (from the Play Store): open `pota_accessible.py` and press Run.
+
+Android browsers can't be launched programmatically, so the app **detects
+Android and skips the auto-open** instead of failing silently. It prints the
+local address for you to open yourself:
+
+```
+  Android detected — auto-open skipped.
+  Open this address in your browser (Chrome, etc.):
+
+      http://127.0.0.1:8777
+
+  Tip: long-press to copy the line above, or type it into the
+  address bar. Leave this session running while you use it.
+```
+
+Copy or type that address into your mobile browser (Chrome, Firefox, etc.).
+Leave the Termux/Pydroid session running while you use the page; return to it
+and press `Ctrl+C` (or stop it in Pydroid) when you're done. Everything else —
+the table, filters, search, and worked-tracking — works exactly as on the
+desktop.
 
 ---
 
