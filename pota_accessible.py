@@ -320,6 +320,35 @@ PAGE_HTML = r"""<!DOCTYPE html>
   }
   footer { max-width: 1200px; margin: 24px auto 40px; padding: 0 16px; color: var(--muted); }
   footer a { color: var(--accent); }
+
+  /* Give the focusable scroll region a clear keyboard focus indicator. */
+  .tablewrap:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+  /* ---- Small screens (phones) ---------------------------------------- */
+  @media (max-width: 640px) {
+    header, main { padding: 12px; }
+    h1 { font-size: 1.3rem; }
+
+    /* Let the scrolling table span the full screen width instead of being
+       inset by the page padding. The negative margins cancel main's padding;
+       the first/last cells re-add a small inset so text isn't flush to the
+       screen edge. */
+    .tablewrap { margin: 0 -12px; }
+    caption { padding: 0 12px; }
+    th:first-child, td:first-child { padding-left: 12px; }
+    th:last-child, td:last-child { padding-right: 12px; }
+
+    /* Tighter cells and slightly smaller type fit more columns before the
+       user has to scroll sideways. */
+    table { font-size: 0.95rem; }
+    th, td { padding: 6px 8px; }
+    .rowbtn { padding: 5px 10px; }
+
+    /* Stack the filter controls full-width rather than wrapping awkwardly. */
+    .field, .checkfield, .btns { width: 100%; }
+    .field input, .field select { width: 100%; min-width: 0; }
+    .btns button { flex: 1; }
+  }
 </style>
 </head>
 <body>
@@ -380,7 +409,8 @@ PAGE_HTML = r"""<!DOCTYPE html>
 </header>
 
 <main id="results">
-  <div class="tablewrap">
+  <div class="tablewrap" role="region"
+       aria-label="Spots table (scroll sideways to see all columns)" tabindex="0">
     <table aria-describedby="status">
       <caption id="tcaption">Active POTA spots</caption>
       <thead>
